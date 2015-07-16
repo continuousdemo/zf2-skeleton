@@ -493,7 +493,7 @@
           {
             "Key": "env",
             "Value": {
-              "Ref": 'env'
+              "Ref": "env"
             },
             "PropagateAtLaunch": "true"
           }
