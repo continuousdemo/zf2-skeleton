@@ -1,26 +1,27 @@
 {
-    "name": "zendframework/skeleton-application",
-    "description": "Skeleton Application for ZF2",
-    "license": "BSD-3-Clause",
-    "keywords": [
-        "framework",
-        "zf2"
-    ],
-    "homepage": "http://framework.zend.com/",
-    "require": {
-        "php": ">=5.5",
-        "phing/phing": "~2.9",
-        "zendframework/zendframework": "~2.5",
-        "doctrine/doctrine-orm-module": "~0.9.1"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^4.6",
-        "squizlabs/php_codesniffer": "^2.3",
-        "behat/behat": "^3.0"
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "ApplicationTest\\": "module/Application/tests/ApplicationTest/"
-        }
+  "name": "zendframework/skeleton-application",
+  "description": "Skeleton Application for ZF2",
+  "license": "BSD-3-Clause",
+  "keywords": [
+    "framework",
+    "zf2"
+  ],
+  "homepage": "http://framework.zend.com/",
+  "require": {
+    "php": ">=5.5",
+    "phing/phing": "~2.9",
+    "zendframework/zendframework": "~2.5",
+    "doctrine/doctrine-orm-module": "~0.9.1",
+    "continuousphp/aws-sdk-phing": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^4.6",
+    "squizlabs/php_codesniffer": "^2.3",
+    "behat/behat": "^3.0"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ApplicationTest\\": "module/Application/tests/ApplicationTest/"
     }
+  }
 }
