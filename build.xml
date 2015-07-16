@@ -20,6 +20,7 @@
             <param name="DBName" value="${cf.DBName}" />
             <param name="DBUser" value="${cf.DBUser}" />
             <param name="DBPassword" value="${cf.DBPassword}" />
+            <param name="env" value="${cf.stackName}" />
         </aws-cf-runstack>
     </target>
 </project>
