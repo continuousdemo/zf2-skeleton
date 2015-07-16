@@ -9,7 +9,7 @@
     </target>
 
     <target name="run-stack">
-        <aws-config region="us-east-1" />
+        <aws-config region="${aws.region}" />
         <aws-cf-runstack
             name="${cf.stackName}"
             updateOnConflict="true"
