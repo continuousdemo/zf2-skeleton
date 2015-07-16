@@ -81,7 +81,9 @@ return array(
     [
         'invokables' =>
         [
-            'buildId'     => 'Application\View\Helper\BuildId'
+            'buildId'     => 'Application\View\Helper\BuildId',
+            'reference'   => 'Application\View\Helper\Reference',
+            'commit'      => 'Application\View\Helper\Commit',
         ]
     ],
     
