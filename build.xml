@@ -11,7 +11,7 @@
     <target name="run-stack">
         <aws-config region="us-east-1" />
         <aws-cf-runstack
-            name="${cf.clusterName}"
+            name="${cf.stackName}"
             updateOnConflict="true"
             templatePath="./cluster.template">
             <param name="KeyName" value="${cf.KeyName}" />
