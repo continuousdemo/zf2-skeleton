@@ -14,6 +14,7 @@
         <aws-cf-runstack
             name="${cf.stackName}"
             updateOnConflict="true"
+            capabilities="CAPABILITY_IAM"
             templatePath="./cluster.template">
             <param name="KeyName" value="${cf.KeyName}" />
             <param name="DBName" value="${cf.DBName}" />
