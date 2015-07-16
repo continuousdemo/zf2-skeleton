@@ -76,6 +76,15 @@ return array(
             'Application\Controller\Index' => 'Application\Controller\IndexController'
         ),
     ),
+
+    'view_helpers'    =>
+    [
+        'invokables' =>
+        [
+            'buildId'     => 'Application\View\Helper\BuildId'
+        ]
+    ],
+    
     'view_manager' => array(
         'display_not_found_reason' => true,
         'display_exceptions'       => true,
