@@ -14,7 +14,8 @@ namespace ApplicationTest\Service;
 use Application\Entity\Alien;
 use Application\Service\AlienNameGenerator;
 
-class AlienNameGeneratorTest extends \PHPUnit_Framework_TestCase {
+class AlienNameGeneratorTest extends \PHPUnit_Framework_TestCase
+{
 
     public function testGetNameReturnsRightLenghtName()
     {
@@ -23,4 +24,4 @@ class AlienNameGeneratorTest extends \PHPUnit_Framework_TestCase {
 
         $this->assertRegExp("/^\S{8}$/", $service->getName(4));
     }
-} 
+}

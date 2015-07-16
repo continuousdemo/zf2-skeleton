@@ -17,5 +17,10 @@
         "phpunit/phpunit": "^4.6",
         "squizlabs/php_codesniffer": "^2.3",
         "behat/behat": "^3.0"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ApplicationTest\\": "module/Application/tests/ApplicationTest/"
+        }
     }
 }
