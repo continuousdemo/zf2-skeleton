@@ -1,5 +1,6 @@
 <project name="zf2-demo" default="help" basedir=".">
     <import file="./vendor/continuousphp/aws-sdk-phing/tasks.xml" />
+    <property name="aws.profile" value="" />
     
     <target name="help" description="List available targets">
         <exec executable="vendor/bin/phing"
@@ -9,7 +10,7 @@
     </target>
 
     <target name="run-stack">
-        <aws-config region="${aws.region}" />
+        <aws-config region="${aws.region}" profile="${aws.profile}" />
         <aws-cf-runstack
             name="${cf.stackName}"
             updateOnConflict="true"
