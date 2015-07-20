@@ -725,6 +725,17 @@
         }
       }
     },
+    "ScheduledActionDown":{
+      "Type":"AWS::AutoScaling::ScheduledAction",
+      "Properties":{
+        "AutoScalingGroupName":{
+          "Ref":"WebServerGroup"
+        },
+        "MaxSize":"0",
+        "MinSize":"0",
+        "Recurrence":"0 0 * * *"
+      }
+    },
     "WebServerSecurityGroup": {
       "Type": "AWS::EC2::SecurityGroup",
       "Properties": {
