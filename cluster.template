@@ -528,7 +528,7 @@
         "Handle": {
           "Ref": "WaitHandle"
         },
-        "Timeout": "1000"
+        "Timeout": "1500"
       }
     },
     "LaunchConfig": {
@@ -600,9 +600,6 @@
               },
               "02-restart-httpd": {
                 "command": "sed -i 's#DocumentRoot \"/var/www/html\"#DocumentRoot \"/var/www/html/public\"#g' /etc/httpd/conf/httpd.conf ; /etc/init.d/httpd restart"
-              },
-              "03-set-index": {
-                "command": "touch /var/www/html/public/index.php"
               }
             },
             "services": {

@@ -12,7 +12,7 @@
     "phing/phing": "~2.9",
     "zendframework/zendframework": "~2.5",
     "doctrine/doctrine-orm-module": "~0.9.1",
-    "continuousphp/aws-sdk-phing": "~0.0"
+    "continuousphp/aws-sdk-phing": "dev-master"
   },
   "require-dev": {
     "phpunit/phpunit": "^4.6",
