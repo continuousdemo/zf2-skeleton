@@ -8,9 +8,12 @@
             <arg value="-l"/>
         </exec>
     </target>
+    
+    <target name="setup-aws">
+        <aws-config region="${aws.region}" profile="${aws.profile}" />
+    </target>
 
     <target name="run-stack">
-        <aws-config region="${aws.region}" profile="${aws.profile}" />
         <aws-cf-runstack
             name="${cf.stackName}"
             updateOnConflict="true"
@@ -21,6 +24,22 @@
             <param name="DBUser" value="${cf.DBUser}" />
             <param name="DBPassword" value="${cf.DBPassword}" />
             <param name="env" value="${cf.stackName}" />
+            <output name="AutoscalingGroup" property="deploy.autoScalingGroup" />
         </aws-cf-runstack>
     </target>
+    
+    <target name="setup-deployment-group">
+        <aws-deploy-deployment-group
+            name="${cf.stackName}"
+            updateOnConflict="true"
+            deploymentConfigName="CodeDeployDefault.OneAtATime"
+            serviceRole="${deploy.serviceRole}"
+            application="${deploy.applicationName}">
+            <autoScalingGroup name="${deploy.autoScalingGroup}" />
+        </aws-deploy-deployment-group>
+    </target>
+    
+    <target name="provision-stack"
+            description="Provision a stack on AWS"
+            depends="setup-aws, run-stack, setup-deployment-group" />
 </project>
