@@ -858,6 +858,12 @@
           ]
         ]
       }
+    },
+    "AutoscalingGroup": {
+      "Description": "AutoScaling Group Logical ID",
+      "Value": {
+        "Ref": "WebServerGroup"
+      }
     }
   }
 }
