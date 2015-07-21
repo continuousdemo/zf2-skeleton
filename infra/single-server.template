@@ -452,12 +452,12 @@
                 "yum install -y aws-cli php56 mysql55-server php56-mysqlnd\n",
                 "mkdir -p /var/www/html/public\n",
                 "chown apache:apache /var/www/html/public\n",
-                "sed -i 's#DocumentRoot \"/var/www/html\"#DocumentRoot \"/var/www/html/public\"#g' /etc/httpd/conf/httpd.conf",
+                "sed -i 's#DocumentRoot \"/var/www/html\"#DocumentRoot \"/var/www/html/public\"#g' /etc/httpd/conf/httpd.conf\n",
                 "/etc/init.d/httpd restart\n",
                 "# Install the AWS CodeDeploy Agent.\n",
                 "cd /home/ec2-user/\n",
-                "aws s3 cp 's3://aws-codedeploy-us-east-1/latest/codedeploy-agent.noarch.rpm' . || error_exit 'Failed to download AWS CodeDeploy Agent.'\n",
-                "yum -y install codedeploy-agent.noarch.rpm || error_exit 'Failed to install AWS CodeDeploy Agent.' \n"
+                "aws s3 cp 's3://aws-codedeploy-us-east-1/latest/codedeploy-agent.noarch.rpm' .\n",
+                "yum -y install codedeploy-agent.noarch.rpm' \n"
               ]
             ]
           }
