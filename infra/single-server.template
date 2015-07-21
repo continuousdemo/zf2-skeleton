@@ -449,7 +449,6 @@
               "",
               [
                 "#!/bin/bash -xe\n",
-                "pip install --upgrade https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz\n",
                 "yum install -y aws-cli php56 mysql55-server php56-mysqlnd\n",
                 "mkdir -p /var/www/html/public\n",
                 "chown apache:apache /var/www/html/public\n",
