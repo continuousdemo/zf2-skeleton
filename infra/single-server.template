@@ -489,6 +489,10 @@
             "Value": {
               "Ref": "env"
             }
+          },
+          {
+            "Key":"Name",
+            "Value": { "Ref": "AWS::StackName" }
           }
         ]
       }

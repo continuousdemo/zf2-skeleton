@@ -156,6 +156,11 @@
       "Description": "The stack environment",
       "Type": "String",
       "AllowedPattern": "[a-zA-Z0-9]+"
+    },
+    "HostedZone":{
+      "Type":"String",
+      "Description":"The DNS name of an existing Amazon Route 53 hosted zone",
+      "Default":"continuous.lu"
     }
   },
   "Mappings": {
@@ -496,6 +501,19 @@
               "Ref": "env"
             },
             "PropagateAtLaunch": "true"
+          },
+          {
+            "Key":"Name",
+            "Value": {
+              "Fn::Join":[
+                "",
+                [
+                  "Cluster-",
+                  { "Ref": "AWS::StackName" }
+                ]
+              ]
+            },
+            "PropagateAtLaunch": true
           }
         ]
       },
@@ -514,6 +532,82 @@
           "PauseTime": "PT15M",
           "WaitOnResourceSignals": "true"
         }
+      }
+    },
+    "DNS": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneName": {
+          "Fn::Join":[
+            "",
+            [
+              {
+                "Ref": "HostedZone"
+              },
+              "."
+            ]
+          ]
+        },
+        "Comment":"Zone apex alias targeted to ElasticLoadBalancer.",
+        "RecordSets": [
+          {
+            "Name": {
+              "Fn::Join":[
+                "",
+                [
+                  { "Ref": "env" },
+                  ".",
+                  { "Ref": "HostedZone" },
+                  "."
+                ]
+              ]
+            },
+            "Type": "A",
+            "AliasTarget":{
+              "HostedZoneId":{
+                "Fn::GetAtt":[
+                  "ElasticLoadBalancer",
+                  "CanonicalHostedZoneNameID"
+                ]
+              },
+              "DNSName":{
+                "Fn::GetAtt":[
+                  "ElasticLoadBalancer",
+                  "CanonicalHostedZoneName"
+                ]
+              }
+            }
+          },
+          {
+            "Name": {
+              "Fn::Join":[
+                "",
+                [
+                  "*.",
+                  { "Ref": "env" },
+                  ".",
+                  { "Ref": "HostedZone" },
+                  "."
+                ]
+              ]
+            },
+            "Type": "A",
+            "AliasTarget":{
+              "HostedZoneId":{
+                "Fn::GetAtt":[
+                  "ElasticLoadBalancer",
+                  "CanonicalHostedZoneNameID"
+                ]
+              },
+              "DNSName":{
+                "Fn::GetAtt":[
+                  "ElasticLoadBalancer",
+                  "CanonicalHostedZoneName"
+                ]
+              }
+            }
+          }
+        ]
       }
     },
     "WaitHandle": {
@@ -856,8 +950,8 @@
     }
   },
   "Outputs": {
-    "WebsiteURL": {
-      "Description": "URLfornewlycreatedLAMPstack",
+    "LoadBalancerURL": {
+      "Description": "Elastic Load Balancer URL",
       "Value": {
         "Fn::Join": [
           "",
@@ -872,6 +966,21 @@
           ]
         ]
       }
+    },
+    "StackURL": {
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "http://",
+            { "Ref": "env" },
+            ".",
+            { "Ref": "HostedZone" },
+            "/"
+          ]
+        ]
+      },
+      "Description" : "URL of Zend Server UI"
     },
     "AutoscalingGroup": {
       "Description": "AutoScaling Group Logical ID",
