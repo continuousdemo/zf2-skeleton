@@ -81,16 +81,16 @@
         },
         {
             "name": "continuousphp/aws-sdk-phing",
-            "version": "0.1.3",
+            "version": "0.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/continuousphp/aws-sdk-phing.git",
-                "reference": "a67b0aec3c311c6d53933788aefc1a4948d03baf"
+                "reference": "64087c7ae1937b64eb7b1cc2cb334e642451ce65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/continuousphp/aws-sdk-phing/zipball/a67b0aec3c311c6d53933788aefc1a4948d03baf",
-                "reference": "a67b0aec3c311c6d53933788aefc1a4948d03baf",
+                "url": "https://api.github.com/repos/continuousphp/aws-sdk-phing/zipball/64087c7ae1937b64eb7b1cc2cb334e642451ce65",
+                "reference": "64087c7ae1937b64eb7b1cc2cb334e642451ce65",
                 "shasum": ""
             },
             "require": {
@@ -116,7 +116,7 @@
             ],
             "description": "phing tasks for Amazon AWS",
             "homepage": "https://github.com/continuousphp/aws-sdk-phing",
-            "time": "2015-07-20 17:26:46"
+            "time": "2015-07-21 13:01:18"
         },
         {
             "name": "doctrine/annotations",
