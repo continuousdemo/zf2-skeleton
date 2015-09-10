@@ -622,7 +622,7 @@
         "Handle": {
           "Ref": "WaitHandle"
         },
-        "Timeout": "1500"
+        "Timeout": "3000"
       }
     },
     "LaunchConfig": {
