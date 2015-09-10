@@ -556,7 +556,7 @@
                 "",
                 [
                   { "Ref": "env" },
-                  ".",
+                  ".demo.",
                   { "Ref": "HostedZone" },
                   "."
                 ]
@@ -974,7 +974,7 @@
           [
             "http://",
             { "Ref": "env" },
-            ".",
+            ".demo.",
             { "Ref": "HostedZone" },
             "/"
           ]
