@@ -6,7 +6,7 @@
         <isset property="continuousphp.pr" />
         <then>
             <property name="cf.stackName"
-                      value="${cf.stackName}${continuousphp.pr}"
+                      value="${cf.stackName}-${continuousphp.pr}"
                       override="true" />
         </then>
     </if>
