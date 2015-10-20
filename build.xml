@@ -6,10 +6,13 @@
         <isset property="continuousphp.pr" />
         <then>
             <echo message="Switching to PR stack" />
-            <property name="cf.stackName"
-                      value="${cf.stackName}-${continuousphp.pr}"
-                      override="true" />
+            <property name="cf.filteredStackName"
+                      value="${cf.stackName}-${continuousphp.pr}" />
         </then>
+        <else>
+            <property name="cf.filteredStackName"
+                      value="${cf.stackName}" />
+        </else>
     </if>
     
     <target name="help" description="List available targets">
@@ -28,17 +31,17 @@
             <equals arg1="single-server" arg2="${cf.template}" />
             <then>
                 <aws-cf-runstack
-                    name="demo-${cf.stackName}"
+                    name="demo-${cf.filteredStackName}"
                     updateOnConflict="true"
                     capabilities="CAPABILITY_IAM"
                     templatePath="./infra/${cf.template}.template">
                     <param name="KeyName" value="${cf.KeyName}" />
-                    <param name="env" value="${cf.stackName}" />
+                    <param name="env" value="${cf.filteredStackName}" />
                 </aws-cf-runstack>
             </then>
             <else>
                 <aws-cf-runstack
-                    name="demo-${cf.stackName}"
+                    name="demo-${cf.filteredStackName}"
                     updateOnConflict="true"
                     capabilities="CAPABILITY_IAM"
                     templatePath="./infra/${cf.template}.template">
@@ -46,7 +49,7 @@
                     <param name="DBName" value="${cf.DBName}" />
                     <param name="DBUser" value="${cf.DBUser}" />
                     <param name="DBPassword" value="${cf.DBPassword}" />
-                    <param name="env" value="${cf.stackName}" />
+                    <param name="env" value="${cf.filteredStackName}" />
                     <output name="AutoscalingGroup" property="deploy.autoScalingGroup" />
                 </aws-cf-runstack>
             </else>
@@ -58,17 +61,17 @@
             <equals arg1="single-server" arg2="${cf.template}" />
             <then>
                 <aws-deploy-deployment-group
-                    name="${cf.stackName}"
+                    name="${cf.filteredStackName}"
                     updateOnConflict="true"
                     deploymentConfigName="CodeDeployDefault.OneAtATime"
                     serviceRole="${deploy.serviceRole}"
                     application="${deploy.applicationName}">
-                    <ec2TagFilter key="env" value="${cf.stackName}" />
+                    <ec2TagFilter key="env" value="${cf.filteredStackName}" />
                 </aws-deploy-deployment-group>
             </then>
             <else>
                 <aws-deploy-deployment-group
-                    name="${cf.stackName}"
+                    name="${cf.filteredStackName}"
                     updateOnConflict="true"
                     deploymentConfigName="CodeDeployDefault.OneAtATime"
                     serviceRole="${deploy.serviceRole}"
@@ -80,7 +83,7 @@
     </target>
 
     <target name="link-docroot" description="Link site document root to Apache document root">
-        <symlink link="${server.docroot}" target="${project.basedir}/public" overwrite="true" />
+        <symlink link="${server.docroot}" target="${project.basedir}/public" />
     </target>
     
     <target name="provision-stack"
