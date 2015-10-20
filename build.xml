@@ -2,6 +2,15 @@
     <import file="./vendor/continuousphp/aws-sdk-phing/tasks.xml" />
     <property name="aws.profile" value="" />
     
+    <if>
+        <isset property="continuousphp.pr" />
+        <then>
+            <property name="cf.stackName"
+                      value="${cf.stackName}${continuousphp.pr}"
+                      override="true" />
+        </then>
+    </if>
+    
     <target name="help" description="List available targets">
         <exec executable="vendor/bin/phing"
               passthru="true">
