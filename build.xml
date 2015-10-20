@@ -5,6 +5,7 @@
     <if>
         <isset property="continuousphp.pr" />
         <then>
+            <echo message="Switching to PR stack" />
             <property name="cf.stackName"
                       value="${cf.stackName}-${continuousphp.pr}"
                       override="true" />
