@@ -3,9 +3,12 @@ os: linux
 files:
   - source: /
     destination: /var/www/html/
+permissions:
+  - object: /var/www/html/
+    owner: apache
+    group: apache
 hooks:
   BeforeInstall:
-    - location: scripts/cleanup.sh
-  AfterInstall:
+    - location: scripts/cleanup.sh  AfterInstall:
     - location: scripts/migrate.sh
       timeout: 180
