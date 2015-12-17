@@ -1,4 +1,11 @@
 <project name="zf2-demo" default="help" basedir=".">
+    <if>
+        <available file="${project.basedir}/build.local.properties" />
+        <then>
+            <property file="${project.basedir}/build.local.properties" />
+        </then>
+    </if>
+    <property file="${project.basedir}/build.properties" />
     <import file="./vendor/continuousphp/aws-sdk-phing/tasks.xml" />
     <property name="aws.profile" value="" />
     
@@ -46,6 +53,45 @@
             application="${deploy.applicationName}">
             <ec2TagFilter key="env" value="${cf.filteredStackName}" />
         </aws-deploy-deployment-group>
+    </target>
+
+    <!-- create database -->
+    <target name="init-db" description="Create Database and Grants">
+        <mkdir dir="${project.basedir}/data/db"/>
+        <echo file="${project.basedir}/data/db/create.sql">
+            CREATE DATABASE IF NOT EXISTS ${db.dbname};
+        </echo>
+        <pdosqlexec url="mysql:host=${db.host}" userid="${db.username}" password="${db.password}">
+            <transaction src="${project.basedir}/data/db/create.sql"/>
+        </pdosqlexec>
+        <delete dir="${project.basedir}/data/db" quiet="true"/>
+    </target>
+
+    <!-- Migrate Database -->
+    <target name="migrate-db" description="Update the database version">
+        <exec command="${doctrine.bin} migrations:migrate --no-interaction" passthru="true"/>
+        <exec command="${doctrine.bin} orm:clear-cache:metadata" passthru="true"/>
+        <exec command="${doctrine.bin} orm:clear-cache:query" passthru="true"/>
+    </target>
+
+    <!-- generate config -->
+    <target name="generate-config">
+
+        <!-- ORM -->
+        <loadfile property="db.config" file="${project.basedir}/config/autoload/orm.local.php.dist">
+            <filterchain>
+                <replacetokens>
+                    <token key="host" value="${db.host}"/>
+                    <token key="port" value="${db.port}"/>
+                    <token key="username" value="${db.username}"/>
+                    <token key="password" value="${db.password}"/>
+                    <token key="dbname" value="${db.dbname}"/>
+                    <token key="dbtest" value="${db.dbtest}"/>
+                </replacetokens>
+            </filterchain>
+        </loadfile>
+        <echo msg="${db.config}" file="./config/autoload/orm.local.php"/>
+
     </target>
 
     <target name="link-docroot" description="Link site document root to Apache document root">

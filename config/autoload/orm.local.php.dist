@@ -1,0 +1,25 @@
+<?php
+return [
+    'doctrine' => [
+        'connection' => [
+            'orm_default' => [
+                'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
+                'params' => [
+                    'host' => '@host@',
+                    'port' => '@port@',
+                    'user' =>'@username@',
+                    'password' => '@password@',
+                    'dbname' => '@dbname@'
+                ],
+            ]
+        ],
+        'migrations_configuration' => [
+            'orm_default' => [
+                'directory' => 'data/orm/migrations',
+                'name' => 'Skeleton',
+                'namespace' => 'DoctrineMigrations',
+                'table' => 'doctrine_migration_versions',
+            ],
+        ],
+    ],
+];
