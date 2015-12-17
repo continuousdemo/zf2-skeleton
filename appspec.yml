@@ -6,3 +6,6 @@ files:
 hooks:
   BeforeInstall:
     - location: scripts/cleanup.sh
+  AfterInstall:
+    - location: scripts/migrate.sh
+      timeout: 180

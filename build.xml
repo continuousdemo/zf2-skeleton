@@ -86,7 +86,6 @@
                     <token key="username" value="${db.username}"/>
                     <token key="password" value="${db.password}"/>
                     <token key="dbname" value="${db.dbname}"/>
-                    <token key="dbtest" value="${db.dbtest}"/>
                 </replacetokens>
             </filterchain>
         </loadfile>
@@ -101,4 +100,8 @@
     <target name="provision-stack"
             description="Provision a stack on AWS"
             depends="setup-aws, run-stack, setup-deployment-group" />
+    
+    <target name="setup"
+            description="Setup external dependencies and migrate data"
+            depends="generate-config, init-db, migrate-db"/>
 </project>
