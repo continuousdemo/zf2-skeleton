@@ -1,4 +1,7 @@
 <project name="zf2-demo" default="help" basedir=".">
+    <import file="./vendor/continuousphp/aws-sdk-phing/tasks.xml" />
+
+
     <if>
         <available file="${project.basedir}/build.local.properties" />
         <then>
@@ -6,9 +9,7 @@
         </then>
     </if>
     <property file="${project.basedir}/build.properties" />
-    <import file="./vendor/continuousphp/aws-sdk-phing/tasks.xml" />
-    <property name="aws.profile" value="" />
-    
+
     <if>
         <isset property="continuousphp.pr" />
         <then>
@@ -21,36 +22,36 @@
                       value="${cf.stackName}" />
         </else>
     </if>
-    
+
     <target name="help" description="List available targets">
         <exec executable="vendor/bin/phing"
               passthru="true">
             <arg value="-l"/>
         </exec>
     </target>
-    
+
     <target name="setup-aws">
         <aws-config region="${aws.region}" profile="${aws.profile}" />
     </target>
 
     <target name="run-stack">
         <aws-cf-runstack
-            name="demo-${cf.filteredStackName}"
-            updateOnConflict="true"
-            capabilities="CAPABILITY_IAM"
-            templatePath="./infra/single-server.template">
+                name="demo-${cf.filteredStackName}"
+                updateOnConflict="true"
+                capabilities="CAPABILITY_IAM"
+                templatePath="./infra/single-server.template">
             <param name="KeyName" value="${cf.KeyName}" />
             <param name="env" value="${cf.filteredStackName}" />
         </aws-cf-runstack>
     </target>
-    
+
     <target name="setup-deployment-group">
         <aws-deploy-deployment-group
-            name="${cf.filteredStackName}"
-            updateOnConflict="true"
-            deploymentConfigName="CodeDeployDefault.OneAtATime"
-            serviceRole="${deploy.serviceRole}"
-            application="${deploy.applicationName}">
+                name="${cf.filteredStackName}"
+                updateOnConflict="true"
+                deploymentConfigName="CodeDeployDefault.OneAtATime"
+                serviceRole="${deploy.serviceRole}"
+                application="${deploy.applicationName}">
             <ec2TagFilter key="env" value="${cf.filteredStackName}" />
         </aws-deploy-deployment-group>
     </target>
@@ -93,14 +94,10 @@
 
     </target>
 
-    <target name="link-docroot" description="Link site document root to Apache document root">
-        <symlink link="${server.docroot}" target="${project.basedir}/public" overwrite="true" />
-    </target>
-    
     <target name="provision-stack"
             description="Provision a stack on AWS"
             depends="setup-aws, run-stack, setup-deployment-group" />
-    
+
     <target name="setup"
             description="Setup external dependencies and migrate data"
             depends="generate-config, init-db, migrate-db"/>
