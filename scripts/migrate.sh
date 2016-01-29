@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /vagrant
+cd /var/www/html
 
 while [ ! -f /usr/local/etc/cphp/cphp.ini ]
 do
@@ -7,4 +7,4 @@ do
 done
 
 vendor/bin/phing -propertyfile /usr/local/etc/cphp/cphp.ini init
-chown -R www-data:www-data /vagrant/*
+chown -R www-data:www-data /var/www/html/*
