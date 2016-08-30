@@ -42,6 +42,7 @@
                 templatePath="./infra/single-server.template">
             <param name="KeyName" value="${cf.KeyName}" />
             <param name="env" value="${cf.filteredStackName}" />
+            <tag key="env" value="ephemeral" />
         </aws-cf-runstack>
     </target>
 
